@@ -64,4 +64,14 @@ with open(resourcefile, newline="") as csvfile:
     print("Greatest Decrease in Profits: " + greatdecmonth + " ($" + str(greatdecvalue) + ")")
 
     #Export a text file with the results
-    
+    filepath = "output/budget_data_results.txt"
+    with open(filepath, "w") as txtfile:
+        txtfile.write("Financial Analysis \n")
+        txtfile.write("---------------------------- \n")
+        txtfile.write("Total Months: " + str(rowcount) + "\n")
+        txtfile.write("Total: $" + str(netamount) + "\n")
+        txtfile.write("Average Change: $" + str(round(avgmonths,2)) + "\n")
+        txtfile.write("Greatest Increase in Profits: " + greatincmonth + " ($" + str(greatincvalue) + ")" + "\n")
+        txtfile.write("Greatest Decrease in Profits: " + greatdecmonth + " ($" + str(greatdecvalue) + ")" + "\n")
+
+
