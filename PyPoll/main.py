@@ -18,9 +18,11 @@ with open(resourcefile, newline="") as csvfile:
     totalvotes = 0
     votes = list(csvreader)
     totalvotes = sum(1 for row in votes)
-
     print("Total Votes: " + str(totalvotes))
     print("-------------------------")
+
+    # A complete list of candidates who received votes
+    # The total number of votes each candidate won
     candidates = []
     votepercandidate = {}
     count = 0
@@ -31,6 +33,8 @@ with open(resourcefile, newline="") as csvfile:
         elif votes[i][2] in votepercandidate:
             votepercandidate[votes[i][2]] += 1
 
+    # The percentage of votes each candidate won
+    # The winner of the election based on popular vote
     percentagevotes = []
     winner = 0
     winningcand = ""
@@ -40,9 +44,23 @@ with open(resourcefile, newline="") as csvfile:
             winningcand = cand
             winner = percentvote
         votepercandidate[cand] = [votes] + ["{:.3%}".format(percentvote)]
-        
+
     for vote in votepercandidate:
         print(f"{vote}: {votepercandidate[vote][1]} ({votepercandidate[vote][0]})")
 
     print("-------------------------")
     print("Winner: " + winningcand)
+    print("-------------------------")
+
+    #Export a text file with the results
+    filepath = "output/election_data_results.txt"
+    with open(filepath, "w") as txtfile:
+        txtfile.write("Election Results \n")
+        txtfile.write("---------------------------- \n")
+        txtfile.write("Total Votes: " + str(totalvotes) + "\n")
+        txtfile.write("---------------------------- \n")
+        for vote in votepercandidate:
+            txtfile.write(vote + ": " + str(votepercandidate[vote][1] )+ " (" + str(votepercandidate[vote][0]) + ") \n")
+        txtfile.write("---------------------------- \n")
+        txtfile.write("Winner: " + winningcand + "\n")
+        txtfile.write("---------------------------- \n")
